@@ -9,3 +9,4 @@ torch
 torchvision
 Gunicorn
 docx2txt
+PyPDF2
