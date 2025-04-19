@@ -20,7 +20,7 @@ const JobFit = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:7000/matcher', {
+            const response = await fetch('https://nitsri-alumni-2.onrender.com/matcher', {
                 method: 'POST',
                 body: formData,
             });
