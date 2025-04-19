@@ -1,0 +1,70 @@
+import { Carousel } from 'react-carousel-minimal';
+
+function Card(props) {
+    const data = [
+        {
+            image: "/images/icefeet/icefeet12.jpeg",
+            caption: ""
+        },
+        {
+            image: "/images/icefeet/icefeet1.jpeg",
+            caption: ""
+        },
+        {
+            image: "/images/icefeet/icefeet4.jpeg",
+            caption: ""
+        }
+
+    ];
+
+    const captionStyle = {
+        fontSize: '2em',
+        fontWeight: 'bold',
+    }
+    const slideNumberStyle = {
+        fontSize: '20px',
+        fontWeight: 'bold',
+    }
+    return (
+        <div className="App w-full">
+            <div style={{ textAlign: "center" }}>
+                <dl>
+                    <dt>{props.head}</dt>
+                    <dd>{props.writer}</dd>
+                </dl>
+                <div style={{
+                    padding: "0 20px"
+                }}>
+                    <Carousel
+                        data={data}
+                        time={2000}
+                        width="850px"
+                        height="500px"
+                        captionStyle={captionStyle}
+                        radius="10px"
+                        slideNumber={true}
+                        slideNumberStyle={slideNumberStyle}
+                        captionPosition="bottom"
+                        automatic={true}
+                        dots={true}
+                        pauseIconColor="white"
+                        pauseIconSize="40px"
+                        slideBackgroundColor="darkgrey"
+                        slideImageFit="cover"
+                        thumbnails={true}
+                        thumbnailWidth="100px"
+                        style={{
+                            textAlign: "center",
+                            maxWidth: "850px",
+                            maxHeight: "500px",
+                            marginBottom: "30px"
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Card;
+
