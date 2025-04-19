@@ -32,6 +32,10 @@ def extract_text(file, filename):
     else:
         return ""
 
+@app.route('/')
+def index():
+    return "Resume Matcher API is running!"
+
 @app.route('/matcher', methods=['POST'])
 def matcher():
     if request.method == 'POST':
