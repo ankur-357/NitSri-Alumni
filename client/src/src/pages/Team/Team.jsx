@@ -7,12 +7,12 @@ const Team = () => {
   const team2 = [
     {
       img2: "https://avatars.githubusercontent.com/u/72189098?v=4",
-      name2: "Rishabh Prakash",
+      name2: "Ankur Kumar",
       detail2: "Team Lead",
     },
     {
       img2: "https://avatars.githubusercontent.com/u/77230416?v=4",
-      name2: "Sudhanshu Ranjan",
+      name2: "Lokit Kawaskar",
       detail2: "Web Designer/Developer",
     },
     {
@@ -22,7 +22,7 @@ const Team = () => {
     },
     {
       img2: "https://cloud.appwrite.io/v1/storage/buckets/photos/files/6511dd92b3788d8e6199/view?project=tesla-official-web&mode=admin",
-      name2: "Lipi Aditi",
+      name2: "Saurav Singh Rajput",
       detail2: "Team Member",
     },
   ];
