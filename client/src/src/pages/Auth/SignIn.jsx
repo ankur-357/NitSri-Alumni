@@ -125,12 +125,8 @@ const Login = () => {
                     </button>
 
                     <p className="text-center">
-                        Don't have an account?{" "}
-                        <Link to="/admin/signup" className="text-sky-500">
-                            <button className="text-sky-500">
-                                SignUp
-                            </button>
-                        </Link>
+                        Don't have an account?{" "}Please talk to administrator.
+                   
                     </p>
 
                     <Link to="/admin/forgot-password" className="m-auto pt-0 -mt-3">
