@@ -51,7 +51,7 @@ const Register = () => {
                 accAlreadyExist &&
                 <div className="flex items-center justify-center flex-col max-w-lg text-center">
                     <div className="flex items-center justify-center">
-                        <img src="/images/logo.svg" alt="logo" className="h-14 mt-1 w-auto" height={40} width={150} />
+                        <img src="/images/logo515.png" alt="logo" className="h-14 mt-1 w-auto" height={40} width={150} />
                     </div>
 
                     <p className="text-white text-lg pt-6">
