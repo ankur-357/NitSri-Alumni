@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             let pref = await account.updatePrefs({
                 type: "user"
             })
-            const url = "https://nitsrialumni.vercel.app/"
+            const url = `${import.meta.env.VITE_APPWRITE_URL}`;
             let link = await account.createVerification(`${url}verify`);
         } catch (error) {
             throw new Error(error.message);
