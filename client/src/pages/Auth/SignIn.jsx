@@ -130,7 +130,7 @@ const Login = () => {
                     <p className="text-center">
                         You are an admin?{" "}
                         <button
-                            onClick={() => window.location.href = API_URL+"/admin"} // Redirect to admin website
+                            onClick={() => navigate("/admin")} // Redirect to admin website
                             className="text-sky-500"
                         >
                             Admin Website
