@@ -9,8 +9,9 @@ import { branches } from "../../utils/branches";
 import { FiSearch } from "react-icons/fi";
 import { toast } from "react-toastify";
 import ExcelUploader from "./ExcelUploader";
-
+import { useNavigate } from "react-router-dom";
 const Alumnis = () => {
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams({
         role: 'all',
         page: 1,
@@ -43,6 +44,27 @@ const Alumnis = () => {
         }, { replace: true });
         window.scrollTo(0, 0);
     }
+    const handleDelete = async (uid) => {
+        if (!window.confirm("Are you sure you want to delete this alumni?")) return;
+
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/delete-user/${uid}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to delete alumni");
+            }
+
+            toast.success("Alumni deleted successfully");
+            navigate("/admin/alumnis");
+            refetch(); // refresh data
+        } catch (error) {
+            console.error(error);
+            toast.error("Error deleting alumni");
+        }
+    };
+
 
     useEffect(() => {
         const debounceTimer = setTimeout(() => {
@@ -190,50 +212,58 @@ const Alumnis = () => {
                             <div className="mt-16 lg:px-10 md:p-8 p-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                                 {alumni.documents.map((person, idx) => {
                                     return (
-                                        <Link
-                                            to={`/admin/alumni/${person.$id}`}
-                                            data-aos="fade-up"
-                                            key={idx}
-                                            className="rounded-xl border hover:bg-[#101010] hover:border-gray-700 hover:border-l-sky-400  border-gray-900 bg-[#000000] border-l-sky-500 border-l-4 shadow-lg w-full"
-                                        >
-                                            <div className="flex flex-row gap-5 hover:scale-95 transition p-4 py-6">
-                                                <div className="lg:w-20 bg-cover flex items-center justify-center md:w-16 w-14 lg:h-20 md:h-16 h-14 rounded-full overflow-hidden">
-                                                    <img
-                                                        id={person.$id}
-                                                        className="w-full object-cover lg:h-20 md:h-16 h-14"
-                                                        src={person.image ? getImageURL(person.image) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw-1B2f_Lrb6WkenAVQw206_ZKeFRfYSm1MqMh8ckJdg&s'}
-                                                        alt={person.name}
-                                                    />
+                                        <div className="relative" key={idx}>
+                                            <Link
+                                                to={`/admin/alumni/${person.$id}`}
+                                                data-aos="fade-up"
+                                                className="rounded-xl border hover:bg-[#101010] hover:border-gray-700 hover:border-l-sky-400  border-gray-900 bg-[#000000] border-l-sky-500 border-l-4 shadow-lg w-full"
+                                            >
+                                                <div className="flex flex-row gap-5 hover:scale-95 transition p-4 py-6">
+                                                    <div className="lg:w-20 bg-cover flex items-center justify-center md:w-16 w-14 lg:h-20 md:h-16 h-14 rounded-full overflow-hidden">
+                                                        <img
+                                                            id={person.$id}
+                                                            className="w-full object-cover lg:h-20 md:h-16 h-14"
+                                                            src={person.image ? getImageURL(person.image) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw-1B2f_Lrb6WkenAVQw206_ZKeFRfYSm1MqMh8ckJdg&s'}
+                                                            alt={person.name}
+                                                        />
+                                                    </div>
+                                                    <div className="text-sm font-medium flex-1">
+                                                        <p className="text-xl font-bold text-sky-500">{person.title} {person.name}</p>
+                                                        <p className="font-medium text-base text-gray-300">
+                                                            {person.branch} ({person.degree})
+                                                        </p>
+                                                        {person.batchEnd && (
+                                                            <p>
+                                                                <span className="text-gray-400">Batch:</span>{" "}
+                                                                {person.batchStart ? person.batchStart + "-" + person.batchEnd : person.batchEnd}
+                                                            </p>
+                                                        )}
+                                                        {person.company && (
+                                                            <p>
+                                                                <span className="text-gray-400">Company:</span>{" "}
+                                                                {person.company}
+                                                            </p>
+                                                        )}
+                                                        {person.designation && (
+                                                            <p>
+                                                                <span className="text-gray-400">Designation:</span>{" "}
+                                                                {person.designation}
+                                                            </p>
+                                                        )}
+                                                        <p className="text-gray-400">Status: <span className={`text-medium text-sm ${person.status === "reviewing" ? "text-yellow-500" : person.status === "approved" ? "text-green-500" : person.status === null ? "text-blue-500" : "text-red-500"}`}>{person.status === null ?
+                                                            "uploaded" : person.status
+                                                        }</span></p>
+                                                    </div>
                                                 </div>
-                                                <div className="text-sm font-medium flex-1">
-                                                    <p className="text-xl font-bold text-sky-500">{person.title} {person.name}</p>
-                                                    <p className="font-medium text-base text-gray-300">
-                                                        {person.branch} ({person.degree})
-                                                    </p>
-                                                    {person.batchEnd && (
-                                                        <p>
-                                                            <span className="text-gray-400">Batch:</span>{" "}
-                                                            {person.batchStart ? person.batchStart + "-" + person.batchEnd : person.batchEnd}
-                                                        </p>
-                                                    )}
-                                                    {person.company && (
-                                                        <p>
-                                                            <span className="text-gray-400">Company:</span>{" "}
-                                                            {person.company}
-                                                        </p>
-                                                    )}
-                                                    {person.designation && (
-                                                        <p>
-                                                            <span className="text-gray-400">Designation:</span>{" "}
-                                                            {person.designation}
-                                                        </p>
-                                                    )}
-                                                    <p className="text-gray-400">Status: <span className={`text-medium text-sm ${person.status === "reviewing" ? "text-yellow-500" : person.status === "approved" ? "text-green-500" : person.status === null ? "text-blue-500" : "text-red-500"}`}>{person.status === null ?
-                                                        "uploaded" : person.status
-                                                    }</span></p>
-                                                </div>
-                                            </div>
-                                        </Link>
+                                            </Link>
+                                            <button
+                                                onClick={() => handleDelete(person.$id)}
+                                                className="absolute top-3 right-3 text-red-500 hover:text-white bg-transparent border border-red-500 hover:bg-red-500 rounded-md px-2 py-1 text-xs font-semibold transition"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+
                                     );
                                 })}
                             </div>
