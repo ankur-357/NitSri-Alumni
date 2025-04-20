@@ -195,7 +195,7 @@ const Gallery = memo(() => {
                                         key={index}
                                         className="bg-gray-900 bg-opacity-40 rounded-[1rem] relative cursor-pointer"
                                     >
-                                        <button onClick={() => handleDelete(img.$id)} className="absolute z-20 right-3 top-3 flex items-center p-2">
+                                        <button onClick={() => handleDelete(img.$id)} className="absolute z-20 right-0 top-0 flex items-center p-2 bg-gray-600">
                                             <FaTrash className="text-rose-500" size={23} />
                                         </button>
 
