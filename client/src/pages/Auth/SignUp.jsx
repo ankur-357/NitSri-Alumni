@@ -98,7 +98,7 @@ const Register = () => {
                     </p>
 
                     <div className="mt-5">
-                        <button className="text-white bg-[#4B164C] hover:bg-black focus:bg-gray-600 rounded-xl py-2.5 px-12" onclick={handleClick}>
+                        <button className="text-white bg-[#4B164C] hover:bg-black focus:bg-gray-600 rounded-xl py-2.5 px-12" onClick={handleClick}>
                             Home Page
                         </button>
                     </div>
