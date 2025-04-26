@@ -81,7 +81,7 @@ const Register = () => {
 
             {isAccountCreated ?
                 <div className="flex items-center justify-center flex-col max-w-lg">
-                    <img src="/images/logo.svg" alt="logo" className="h-14 mt-1 w-auto" height={40} width={150} />
+                    <img src="/images/logo515.png" alt="logo" className="h-14 mt-1 w-auto" height={40} width={150} />
                     <h3 className="text-xl font-semibold pt-5">Alumni Website NITSGR</h3>
                     <h1 className="text-3xl font-bold px-3 text-sky-500 pt-10">Account Created!</h1>
                     <p className="text-center mt-1">
