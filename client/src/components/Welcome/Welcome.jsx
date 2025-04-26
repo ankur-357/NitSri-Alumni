@@ -5,7 +5,6 @@ const Welcome = () => {
         <div className='flex flex-col items-center justify-center m-auto lg:px-16 md:px-12 px-6 py-[100px] max-w-[68rem]'>
             <h3 className=' bg-gray-900 text-center m-auto w-fit lg:px-8 md:px-8 px-5 py-9 text-xl flex flex-col divide-y-2 divide-slate-800 font-semibold rounded-2xl border-sky-700 border'>
                 <span className='text-sky-400 pb-2'>Welcome to NIT Srinagar Alumni Website!</span>
-                <span className='text-white text-lg pt-2'>रा. प्रो. स. पटना के पूर्ववर्ती छात्र छात्राओं की वेबसाइट पर आपका स्वागत है।</span>
             </h3>
 
             <div className='flex justify-center text-justify items-center flex-col gap-5 px-4 lg:text-lg md:text-lg pt-10'>
