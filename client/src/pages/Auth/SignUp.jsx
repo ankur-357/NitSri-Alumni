@@ -43,7 +43,9 @@ const Register = () => {
             reset();
         }
     };
-
+    const handleClick = () => {
+        window.location.href = "/";
+    }
     return (
         <div className="flex justify-center items-center min-h-screen">
             <Meta title="Sign Up | Alumni NITSGR" />
@@ -95,11 +97,11 @@ const Register = () => {
                         If already verified, click on the button below to login.
                     </p>
 
-                    <Link to="/signin" className="mt-5">
-                        <button className="text-white bg-[#4B164C] hover:bg-black focus:bg-gray-600 rounded-xl py-2.5 px-12">
-                            Login
+                    <div className="mt-5">
+                        <button className="text-white bg-[#4B164C] hover:bg-black focus:bg-gray-600 rounded-xl py-2.5 px-12" onclick={handleClick}>
+                            Home Page
                         </button>
-                    </Link>
+                    </div>
                 </div>
                 :
                 !accAlreadyExist && <div className="lg:w-[28rem] md:w-[28rem] sm:w-[90%] w-[95%] border-gray-700 border py-8 lg:px-8 md:px-7 px-4 rounded-3xl bg-[#0c0c0c]">
