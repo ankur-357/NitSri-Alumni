@@ -5,7 +5,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 
 const Director = () => {
     return (
-        <div className='w-full flex-1 bg-white'>
+        <div className='w-full flex-1 bg-white h-full'>
             <div className="grid w-full bg-transparent text-white px-10 pt-2 pb-2 gap-6 text-center md:grid-cols-1 lg:gap-12">
                 <div className='w-full mt-2'>
                     <div className=''>
