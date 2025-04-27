@@ -47,6 +47,13 @@ const NavBar = () => {
                 </ul>
             </nav>
 
+            <a href="/">
+                <button className="border-b border-black px-3 py-2 bg-gradient-to-r from-blue-500 to-green-500 rounded-full cursor-pointer hover:bg-[#4B164C] hover:text-white whitespace-nowrap">
+                    Client
+                </button>
+            </a>
+
+
             <div className="text-sm flex gap-2">
                 {user ? (
                     <Link to="/admin/profile">
