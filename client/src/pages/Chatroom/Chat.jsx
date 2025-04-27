@@ -3,15 +3,11 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import axios from 'axios';
 
 function Chat({ socket, username, room }) {
-    console.log(socket);
-    console.log(username);
-    console.log(room);
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
     const fetchMessages = async () => {
         try {
-            const response = await axios.get(`/api/messages?room=${room}`);
-            console.log(response);
+            const response = await axios.get(`https://nitsri-alumni-1.onrender.com/api/messages?room=${room}`);
             setMessageList(response.data);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -50,8 +46,7 @@ function Chat({ socket, username, room }) {
             </div>
             <div className="chat-body">
                 <ScrollToBottom className="message-container">
-                    {console.log(messageList)}
-                    {messageList.map((messageContent, index) => {
+                    {messageList?.map((messageContent, index) => {
                         return (
                             <div
                                 className="message"
