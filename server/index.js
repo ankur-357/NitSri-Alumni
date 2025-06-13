@@ -141,7 +141,7 @@ app.get("/api/messages", async (req, res) => {
 });
 
 const { Server } = require("socket.io");
-const { API_URL } = require('../client/src/constant.js');
+const API_URL = process.env.API_URL;
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {

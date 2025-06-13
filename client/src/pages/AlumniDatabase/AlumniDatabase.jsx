@@ -5,10 +5,13 @@ import Meta from "../../components/Meta/Meta";
 import { branches } from "../../utils/branches";
 import { getAlumniData } from "../../services/documents";
 import { useSearchParams } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiFilter, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { BiLoaderAlt } from "react-icons/bi";
+import { MdError, MdBusiness, MdWork } from "react-icons/md";
+import { HiOutlineAcademicCap, HiOutlineUserGroup } from "react-icons/hi";
+import { BsCalendar3 } from "react-icons/bs";
 import { getImageURL } from "../../services/files";
 import AlumniCard from "./AlumniCard";
-
 
 const AlumniDatabase = () => {
     const [searchParams, setSearchParams] = useSearchParams({
@@ -23,7 +26,7 @@ const AlumniDatabase = () => {
     const type = searchParams.get('type') || "jobTitle";
     const [itemsPerPage] = useState(21);
     const [branch, setBranch] = useState(null);
-    const [currentPopup, setCurrentPopup] = useState(null); // [id, type]
+    const [currentPopup, setCurrentPopup] = useState(null);
     const [searchText, setSearchText] = useState(search);
     const [searchType, setSearchType] = useState(type);
 
@@ -47,63 +50,118 @@ const AlumniDatabase = () => {
             changeParams('search', searchText);
         }, 500);
 
-        // Cleanup the timer on component unmount
         return () => clearTimeout(debounceTimer);
     }, [searchText]);
 
     return (
-        <div className="min-h-screen relative">
+        <div className="min-h-screen relative bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
             <Meta name="Alumni Database" />
-            <div className="flex relative bg-[url(https://firebasestorage.googleapis.com/v0/b/kaisen2023.appspot.com/o/static-images%2F007d2522-8220-4d3d-b506-8fef870eb1df.jpg?alt=media&token=46a7d8e5-aa90-4461-bd2e-15df0204e7d5)] bg-no-repeat  w-full flex-col gap-3 items-center bg-cover justify-center py-20 text-center text-white h-[55vh]">
-                <div className="absolute w-full inset-0 text-left pt-28  bg-gradient-to-t  from-[rgba(0,0,0,1)] via-[rgba(0,0,0,0.5)] to-transparent">
-                    <div className="lg:pl-24 md:pl-16 pl-6">
-                        <p className="lg:text-5xl md:text-4xl text-3xl font-bold pb-1">
-                            Alumni Database
-                        </p>
-                        <h5 className="lg:text-2xl md:text-xl text-lg font-medium pb-2">
-                            <span className="text-sky-500">Searching</span> for NITSGR Alumnus?
-                        </h5>
-                        <h5 className="lg:text-2xl md:text-xl text-lg font-bold pb-2">
-                            Type: <span className="text-rose-500">{role.toUpperCase()}</span>
-                        </h5>
-                    </div>
 
-                    <div className='lg:w-[80%] w-full md:px-6 px-3 mt-5  m-auto relative flex md:gap-3 gap-2 items-center'>
-                        <div className='flex-1 relative w-full'>
-                            <input value={searchText} onChange={(e) => setSearchText(e.target.value)} type="search" placeholder="Search by title, company, skills.." className="w-full pl-10 px-5 md:py-2.5 py-2 rounded-xl bg-gray-950 text-gray-200 font-normal" />
-                            <FiSearch className="absolute md:top-4 top-3 text-xl left-3.5 text-gray-400" />
+            {/* Hero Section */}
+            <div className="relative h-[65vh] min-h-[600px] overflow-hidden">
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0 bg-[url(https://firebasestorage.googleapis.com/v0/b/kaisen2023.appspot.com/o/static-images%2F007d2522-8220-4d3d-b506-8fef870eb1df.jpg?alt=media&token=46a7d8e5-aa90-4461-bd2e-15df0204e7d5)] bg-cover bg-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/85 to-gray-950"></div>
+                </div>
+
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-20 -left-20 w-60 h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                    <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-center px-4 md:px-8 lg:px-12">
+                    {/* Header */}
+                    <div className="text-center mb-12 mt-20">
+                        <div className="inline-flex items-center justify-center gap-3 mb-6">
+                            <div className="p-3 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl shadow-lg shadow-sky-500/25">
+                                <HiOutlineUserGroup className="text-3xl text-white" />
+                            </div>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+                                Alumni <span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">Database</span>
+                            </h1>
                         </div>
-
-                        <select value={searchType} onChange={(e) => {
-                            setSearchType(e.target.value);
-                            changeParams('type', e.target.value);
-                        }} className='bg-gray-950 rounded-xl lg:px-4 md:px-4 px-2 md:py-2.5 py-2 font-normal text-gray-300'>
-                            <option value="">Search By</option>
-                            <option value="name">Name</option>
-                            <option value="batchEnd">Batch</option>
-                            <option value="company">Company</option>
-                            <option value="designation">Designation</option>
-                        </select>
+                        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                            Connect with <span className="text-sky-400 font-semibold">NITSGR Alumni</span> from around the world
+                        </p>
+                        {role && (
+                            <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500/20 to-pink-500/20 backdrop-blur-sm rounded-full border border-rose-500/30">
+                                <span className="text-white font-medium">Viewing:</span>
+                                <span className="text-rose-400 font-bold uppercase tracking-wide">{role}</span>
+                            </div>
+                        )}
                     </div>
 
-                    <div className="lg:max-w-3xl md:max-w-2xl w-full md:px-6 px-4 m-auto py-10 pt-5">
-                        <div className="flex flex-wrap items-center gap-3 justify-center pt-6">
-                            <button onClick={() => {
-                                setBranch(null);
-                                changeParams("page", 1);
-                            }} className={`border-[#e9e1e1] border font-semibold text-[#e9e1e1] px-5 py-2 text-base rounded-xl hover:bg-[#e9e1e1] hover:text-gray-900 ${branch === null && 'bg-[#e9e1e1] text-gray-900'}`}>
-                                All
+                    {/* Search Section */}
+                    <div className="max-w-4xl mx-auto w-full">
+                        <div className="bg-gray-900/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 shadow-2xl">
+                            <div className="flex flex-col md:flex-row gap-4">
+                                {/* Search Input */}
+                                <div className="flex-1 relative group">
+                                    <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400 group-focus-within:text-sky-400 transition-colors duration-300" />
+                                    <input
+                                        value={searchText}
+                                        onChange={(e) => setSearchText(e.target.value)}
+                                        type="search"
+                                        placeholder="Search alumni by name, company, designation..."
+                                        className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-sky-500/50 focus:bg-gray-800/80 focus:shadow-lg focus:shadow-sky-500/10 transition-all duration-300"
+                                    />
+                                </div>
+
+                                {/* Filter Dropdown */}
+                                <div className="relative group">
+                                    <select
+                                        value={searchType}
+                                        onChange={(e) => {
+                                            setSearchType(e.target.value);
+                                            changeParams('type', e.target.value);
+                                        }}
+                                        className="appearance-none bg-gray-800/50 border border-gray-700/50 rounded-xl px-6 py-4 pr-12 text-gray-300 font-medium focus:outline-none focus:border-sky-500/50 focus:bg-gray-800/80 transition-all duration-300 cursor-pointer hover:bg-gray-800/70"
+                                    >
+                                        <option value="">Search By</option>
+                                        <option value="name">Name</option>
+                                        <option value="batchEnd">Batch</option>
+                                        <option value="company">Company</option>
+                                        <option value="designation">Designation</option>
+                                    </select>
+                                    <FiFilter className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Branch Filters */}
+                    <div className="max-w-6xl mx-auto w-full mt-8">
+                        <div className="flex flex-wrap items-center justify-center gap-3">
+                            <button
+                                onClick={() => {
+                                    setBranch(null);
+                                    changeParams("page", 1);
+                                }}
+                                className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 transform hover:scale-105 ${branch === null
+                                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25'
+                                    : 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-gray-800/70 hover:border-sky-500/50 hover:text-sky-400'
+                                    }`}
+                            >
+                                All Branches
                             </button>
-                            {
-                                branches.map((dept, idx) => (
-                                    <button key={idx} onClick={() => {
+                            {branches.map((dept, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => {
                                         setBranch(dept.value);
                                         changeParams("page", 1);
-                                    }} className={`border-[#e9e1e1] border font-semibold text-[#e9e1e1] md:px-5 px-4 py-2 text-base rounded-xl hover:bg-[#e9e1e1] hover:text-gray-900 ${branch === dept.value && 'bg-[#e9e1e1] text-gray-900'}`}>
-                                        {dept.value}
-                                    </button>
-                                ))
-                            }
+                                    }}
+                                    className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 transform hover:scale-105 ${branch === dept.value
+                                        ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25'
+                                        : 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-gray-800/70 hover:border-sky-500/50 hover:text-sky-400'
+                                        }`}
+                                >
+                                    {dept.value}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
