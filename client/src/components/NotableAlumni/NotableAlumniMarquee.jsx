@@ -28,7 +28,7 @@ const NotableAlumniMarquee = () => {
                     response.documents.map(async doc => {
                         // If the image is stored as a file in Appwrite, get the image URL
                         const imageURL = await getImageURL(doc.image); // Fetch image URL using file ID
-                        console.log(imageURL);
+                        
                         return {
                             id: doc.$id,
                             name: doc.name,

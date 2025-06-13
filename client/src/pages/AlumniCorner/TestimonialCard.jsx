@@ -5,7 +5,6 @@ import { getImageURL } from '../../services/files';
 import { toast } from 'react-toastify';
 
 const TestimonialCard = ({ data }) => {
-    console.log(data)
     return (
         <div data-aos="fade-up" className='flex' >
             <div className='border-[1px] border-gray-500 border-b-cyan-500 hover:border-b-cyan-600 border-b-8 rounded-2xl w-full p-3 pt-5 pb-7 hover:scale-[101%] z-0 hover:z-10 transition-all delay-[30ms] ease-in-out m-1 bg-[#205781] bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] py-10'>

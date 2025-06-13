@@ -12,7 +12,7 @@ const YourBlogs = ({ user }) => {
         queryKey: ['66d744fa003605e2b2ed', user.$id],
         queryFn: () => getUserTestimonials('66d744fa003605e2b2ed', user.$id),
         onSuccess: (data) => {
-            console.log(data);
+
         }
 
     });

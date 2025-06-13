@@ -40,8 +40,6 @@ const Blog = () => {
             delete blogData.$permissions;
 
             await updateDocument('66d744fa003605e2b2ed', blogId, blogData);
-            console.log(data);
-            console.log(data.status)
             await refetch();
             if (data.status === 'published') {
                 await sendNotification(blog.id, 'Blog Published', `Your blog "${blog.title}" has been published!`);

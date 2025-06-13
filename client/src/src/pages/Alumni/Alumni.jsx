@@ -25,7 +25,6 @@ const Alumni = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             setLoading(true);
             const alumniData = {
@@ -33,8 +32,6 @@ const Alumni = () => {
                 status: data.status,
                 reviewMsg: data.reviewMsg
             }
-            console.log(alumniData)
-            console.log(alumniData.$collectionId);
             delete alumniData.$createdAt;
             delete alumniData.$updatedAt;
             delete alumniData.$id;

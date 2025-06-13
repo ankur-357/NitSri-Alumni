@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../../constant';
 
 const BlogCard = ({ data, type }) => {
-    console.log(data);
+    
     return (
         <div className='max-w-sm w-full p-4 border-2 hover:border-gray-800 bg-black  border-gray-900 rounded-2xl mt-5'>
             <Link data-aos="fade-up" to={`/${type === "experience" ? "experience" : "blog"}/${data.$id}`}>

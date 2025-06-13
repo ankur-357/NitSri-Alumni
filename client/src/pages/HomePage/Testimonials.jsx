@@ -13,7 +13,6 @@ const Testimonials = () => {
         queryFn: () => getPaginatedPublishedDocs('testimonials', 3, 0),
     });
 
-    console.log(testimonials)
     return (
         <div className='my-10 py-10 pb-20 lg:px-16 md:px-6 px-6 bg-white'>
             <h1

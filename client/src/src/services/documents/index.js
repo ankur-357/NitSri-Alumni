@@ -170,8 +170,6 @@ export const getAlumniData = async (limit = 24, offset = 0, role, search, type, 
     if (branch) queries.push(Query.equal('branch', [branch]));
     if (search && type) queries.push(Query.search(type, [search]));
 
-    console.log(queries, role);
-
     try {
         const res = await databases.listDocuments(DATABASE_ID, "66d769cc0004f4437921", queries);
         return res;

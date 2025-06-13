@@ -4,8 +4,7 @@ export const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
 
 const client = new Client()
-console.log(PROJECT_ID);
-console.log(DATABASE_ID);
+
 client
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject(PROJECT_ID)

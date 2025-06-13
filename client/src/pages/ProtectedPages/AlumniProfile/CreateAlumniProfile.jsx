@@ -55,13 +55,11 @@ const CreateAlumniProfile = () => {
             }
 
             setMessage('Creating profile...');
-            console.log(data)
             await createDocument('66d769cc0004f4437921', data);
             toast.success("Profile created successfully!");
             resetForm();
             refetch();
         } catch (error) {
-            console.log(error)
             toast.error(error.message);
         } finally {
             setLoading(false);

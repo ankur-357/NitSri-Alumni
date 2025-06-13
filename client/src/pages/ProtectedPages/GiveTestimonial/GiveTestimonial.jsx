@@ -47,7 +47,6 @@ const GiveTestimonial = () => {
 
     try {
       const res = await createDocument('testimonials', formData);
-      console.log(res);
       toast.success("Testimonial created successfully!");
       resetForm();
       refetch();

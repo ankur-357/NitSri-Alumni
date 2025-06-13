@@ -16,7 +16,6 @@ export const getDocuments = async (COLLECTION_ID, limit = 100, offset = 0) => {
             Query.limit(limit),
             Query.offset(offset),
         ]);
-        console.log(res);
         return res.documents;
     } catch (err) {
         throw new Error(err.message);

@@ -38,7 +38,6 @@ const ComposeBlog = ({ user }) => {
                     imgUrl: res.$id
                 }
             }
-            console.log(data);
             const res = await createDocument('66d744fa003605e2b2ed', data);
             toast.success("Blog sent for review to admin!");
             resetForm();

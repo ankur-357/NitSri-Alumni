@@ -14,7 +14,6 @@ const Blogs = () => {
         queryKey: ['homepage-blog'],
         queryFn: () => getPaginatedPublishedDocs('66d744fa003605e2b2ed', 3, 0),
     });
-    console.log(blogs);
 
     return (
         <div className='my-10 mb-36 lg:px-16 md:px-6 px-6'>

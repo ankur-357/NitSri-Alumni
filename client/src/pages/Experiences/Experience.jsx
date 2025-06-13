@@ -19,7 +19,6 @@ const Experience = () => {
         queryFn: () => getDocument('experiences', experienceId),
     });
 
-    console.log(experience);
     return (
         <div className='pt-36 min-h-screen'>
             <Meta name={experience ? experience.title : "Experience - NIT Srinagar"} />
