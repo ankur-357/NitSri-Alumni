@@ -32,7 +32,21 @@ const Director = () => {
                         </h6>
 
                         <p className="mb-4 font-normal text-black">
-                            Prof. arch and Development and Head of the Department extensive collaborative research experience with laboratories like CEERI, DRDO, and IPR. He was a Visiting Scientist at MIT and Penn State University in 2008 and 2007, respectively. With over 20 guided doctoral theses, 100 SCI journal papers, and 200 conference proceedings, he's a senior member of IEEE and a fellow of several prestigious engineering societies.
+                            Prof. Binod Kumar Kanaujia, the esteemed Director of NIT Srinagar and Dr. B R
+                            Ambedkar National Institute of Technology (NIT), Jalandhar, is a distinguished
+                            academician. He holds a B.Tech degree in Electronics Engineering from Kamla
+                            Nehru Institute of Technology (KNIT), Sultanpur, India (1994), and both M.Tech
+                            (1998) and Ph.D. (2004) degrees from the Department of Electronics Engineering at
+                            IIT (Banaras Hindu University), Varanasi, India.
+                            Prof. Kanaujia has had an illustrious academic career. Since August 2016, he has
+                            served as a Professor and Dean at the School of Computational and Integrative
+                            Sciences, Jawaharlal Nehru University (JNU), New Delhi. He became the Director of
+                            Dr. B R Ambedkar NIT Jalandhar in February 2022 and was also given additional
+                            charge as Director of the Indian Institute of Information Technology, Una, by the
+                            Ministry of Education on April 23, 2024. Furthermore, Prof. Kanaujia has taken up
+                            the additional charge as Director of NIT Srinagar as per the Ministry of Education
+                            directive dated October 17, 2024.
+
                         </p>
                     </ul>
                 </div>
