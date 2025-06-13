@@ -6,12 +6,31 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../../constant';
 
 const BlogCard = ({ data, type }) => {
+    console.log(data);
     return (
         <div className='max-w-sm w-full p-4 border-2 hover:border-gray-800 bg-black  border-gray-900 rounded-2xl mt-5'>
             <Link data-aos="fade-up" to={`/${type === "experience" ? "experience" : "blog"}/${data.$id}`}>
                 <div className='flex items-center justify-center h-44 overflow-hidden bg-cover w-full rounded-lg border border-gray-900'>
-                    <img loading='lazy' className='w-full h-44 object-cover' src={getImageURL(data.imgUrl)} alt={data.name} />
+                    {
+                        data.imgUrl ? (
+                            <img
+                                loading='lazy'
+                                className='w-full h-44 object-cover'
+                                src={getImageURL(data.imgUrl)}
+                                alt={data.$collectionId === 'experiences' ? data.title : data.name}
+                            />
+                        ) : (
+                            <img
+                                loading='lazy'
+                                className='w-full h-44 object-cover'
+                                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(data.$collectionId === 'experiences' ? data.title || 'Placeholder' : data.name || 'Placeholder')}&background=0D8ABC&color=fff&size=512`}
+                                alt={`Placeholder for ${data.$collectionId === 'experiences' ? data.title || 'item' : data.name || 'item'}`}
+                            />
+                        )
+                    }
                 </div>
+
+
                 <p className='text-gray-400 pt-2 pl-2'>{
                     data.tags.map((tag, id) => (
                         <span key={id} className='text-sm mr-1 text-blue-400'>#{tag}</span>

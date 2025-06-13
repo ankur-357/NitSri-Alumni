@@ -53,12 +53,22 @@ const Meet = () => {
 
 export default Meet;
 
+
 const EventCard = ({ item, refetch }) => {
+    const imageSrc = item.image
+        ? getImageURL(item.image)
+        : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.title || 'Event')}&background=0D8ABC&color=fff&size=512`;
+
     return (
         <div className='w-[25rem] h-fit flex flex-col justify-center p-2 mt-5 sm:p-4 border-2 hover:border-gray-800 bg-black border-gray-900 rounded-2xl'>
             <div className='flex justify-center'>
                 <div className='flex bg-green-100 w-[22rem] items-center justify-center overflow-hidden rounded-lg border border-gray-900'>
-                    <img className='w-[22rem]' src={getImageURL(item.image)} alt="Event" /> {/* Ensure getImageURL is correctly fetching the URL */}
+                    <img
+                        loading='lazy'
+                        className='w-[22rem] object-cover'
+                        src={imageSrc}
+                        alt={item.title || 'Event'}
+                    />
                 </div>
             </div>
             <div className='flex justify-center'>
@@ -83,3 +93,4 @@ const EventCard = ({ item, refetch }) => {
         </div>
     );
 };
+

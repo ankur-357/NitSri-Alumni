@@ -19,7 +19,7 @@ const Experience = () => {
         queryFn: () => getDocument('experiences', experienceId),
     });
 
-
+    console.log(experience);
     return (
         <div className='pt-36 min-h-screen'>
             <Meta name={experience ? experience.title : "Experience - NIT Srinagar"} />
@@ -32,7 +32,20 @@ const Experience = () => {
                             <h1 className='lg:text-4xl md:text-3xl text-2xl font-bold lg:max-w-3xl md:max-w-2xl px-6 text-center m-auto text-sky-500 my-10 mt-6'>{experience.title}</h1>
 
                             <div className='flex items-center  lg:h-96 md:h-72 h-64 overflow-hidden lg:w-[70%] md:w-[80%] w-[85%] rounded-lg border border-gray-900'>
-                                <img className='w-full' src={getImageURL(experience.imgUrl)} alt={experience.title} />
+                                {
+                                    experience.getImageURL ? (
+                                        <img className='w-full' src={getImageURL(experience.imgUrl)} alt={experience.title} />
+                                    ) : (
+                                        <div className='mt-16 w-full'>
+                                            <img
+                                                className='w-full object-cover object-center '
+                                                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(experience.title)}&background=0D8ABC&color=fff&size=512`}
+                                                alt={`Placeholder for ${experience.title}`}
+                                            />
+                                        </div>
+                                    )
+                                }
+
                             </div>
 
                             <div className='flex items-center pt-5'>
