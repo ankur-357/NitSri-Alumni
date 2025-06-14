@@ -1,88 +1,78 @@
-import { Link } from 'react-router-dom'
-import Heading1 from '../Headings/Heading1'
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Heading1 from '../Headings/Heading1';
 
 const QuickLinks = () => {
-    const links = [
-        {
-            name: "UG Alumni Database",
-            icon: "./images/quicklink/blockchain.png",
-            link: "/alumni-database?role=ug"
-        },
-        {
-            name: "PG Alumni Database",
-            icon: "./images/quicklink/electrical.png",
-            link: "/alumni-database?role=pg"
-        },
-        {
-            name: "PhD Alumni Database",
-            icon: "./images/quicklink/web.png",
-            link: "/alumni-database?role=phd"
-        },
-        {
-            name: "Alumni Meetings",
-            icon: "./images/quicklink/social.png",
-            link: "/alumni-meet"
-        },
-        {
-            name: "Blogs from Alumni",
-            icon: "./images/quicklink/content.png",
-            link: "/blogs"
-        },
-        {
-            name: "Alumni Experience",
-            icon: "./images/quicklink/marketing.png",
-            link: "/experiences"
-        },
-        {
-            name: "Internship via Alumni",
-            icon: "./images/quicklink/design.png",
-            link: "/internships"
-        },
-        {
-            name: "Job Openings Via Alumni",
-            icon: "./images/quicklink/event.png",
-            link: "/jobs"
-        }
-    ]
+    const [activeIndex, setActiveIndex] = useState(null);
 
-
+    const navigationItems = [
+        { title: "Undergraduate Network", iconPath: "./images/quicklink/blockchain.png", route: "/alumni-database?role=ug" },
+        { title: "Postgraduate Community", iconPath: "./images/quicklink/electrical.png", route: "/alumni-database?role=pg" },
+        { title: "Doctoral Research Network", iconPath: "./images/quicklink/web.png", route: "/alumni-database?role=phd" },
+        { title: "Reunion Events", iconPath: "./images/quicklink/social.png", route: "/alumni-meet" },
+        { title: "Success Stories", iconPath: "./images/quicklink/content.png", route: "/blogs" },
+        { title: "Experiences", iconPath: "./images/quicklink/marketing.png", route: "/experiences" },
+        { title: "Internship Opportunities", iconPath: "./images/quicklink/design.png", route: "/internships" },
+        { title: "Career Gateway", iconPath: "./images/quicklink/event.png", route: "/jobs" },
+    ];
 
     return (
-        <div className='pb-24 pt-20 bg-white'>
-            <h1 data-aos="fade-up" className="mb-2.5 lg:ml-10 md:ml-10 p-5 text-center text-sky-400 lg:text-5xl md:text-4xl text-4xl font-bold leading-tight">
-                <Heading1 text1={"Quick"} text2={"Links"}></Heading1>
-            </h1>
-            <div className='flex items-center lg:flex-row md:flex-row flex-col justify-center lg:gap-x-16 md:gap-x-8 mt-6'>
-                <div className='flex flex-col items-center justify-center gap-5 mt-5 lg:w-fit md:w-fit w-full'>
-                    {links.slice(0, 4).map((QuickLinks, idx) =>
-                        <Link className='lg:w-96 md:w-80 sm:w-[90%] w-full md:p-0 px-6' data-aos="zoom-in" style={{ textDecoration: "none" }} key={idx} to={QuickLinks.link}>
-                            <div className='flex items-center bg-[#0a0a0a] border-gray-800 hover:border-gray-700 border p-2.5 rounded-2xl gap-4'>
-                                <div className='bg-gray-900 p-1.5 rounded'>
-                                    <img src={QuickLinks.icon} alt="blockchain" className='h-8 w-8' />
-                                </div>
-                                <div>
-                                    <p className='lg:text-xl md:text-xl text-lg text-gray-200 font-semibold pr-10'>{QuickLinks.name}</p>
-                                </div>
-                            </div>
-                        </Link>)}
+        <section className='relative py-28 bg-white'>
+            <div className="relative z-10">
+                <div className="text-center mb-16">
+                    <div className="inline-block p-4 mb-6">
+                        <Heading1 text1={"Navigation"} text2={"Hub"} />
+                    </div>
+                    <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                        Explore our interconnected alumni ecosystem
+                    </p>
                 </div>
 
-                <div className='flex flex-col items-center justify-center gap-5 mt-5 lg:w-fit md:w-fit w-full'>
-                    {links.slice(4, 8).map((QuickLinks, idx) =>
-                        <Link className='lg:w-96 md:w-80 sm:w-[90%] w-full md:p-0 px-6' data-aos="zoom-in" style={{ textDecoration: "none" }} key={idx} to={QuickLinks.link}>
-                            <div className='flex items-center bg-[#0a0a0a] border-gray-800 hover:border-gray-700 border p-2.5 rounded-2xl gap-4'>
-                                <div className='bg-gray-900 p-1.5 rounded'>
-                                    <img src={QuickLinks.icon} alt="blockchain" className='h-8 w-8' />
+                <div className='max-w-7xl mx-auto px-6'>
+                    <div className='grid lg:grid-cols-2 gap-8 items-start'>
+                        {navigationItems.map((item, index) => (
+                            <Link
+                                key={index}
+                                to={item.route}
+                                className="block group"
+                                onMouseEnter={() => setActiveIndex(index)}
+                                onMouseLeave={() => setActiveIndex(null)}
+                            >
+                                <div className={`
+                                    relative p-6 rounded-3xl border border-gray-200 transition-transform duration-500
+                                    bg-emerald-50 shadow-md hover:shadow-lg transform group-hover:scale-105
+                                    ${activeIndex === index ? 'shadow-xl' : ''}
+                                `}>
+                                    <div className="flex items-center space-x-5">
+                                        <div className="p-4 rounded-2xl bg-gray-100 shadow-sm group-hover:shadow-md transition-all">
+                                            <img
+                                                src={item.iconPath}
+                                                alt={item.title}
+                                                className='w-8 h-8 transition-transform duration-300'
+                                            />
+                                        </div>
+
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className={`text-xl font-bold text-gray-800 transition-all`}>
+                                                {item.title}
+                                            </h3>
+                                            <div className="h-0.5 mt-2 bg-black w-0 group-hover:w-full transition-all duration-500"></div>
+                                        </div>
+
+                                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 group-hover:bg-gray-500 transition-all">
+                                            <svg className="w-5 h-5 text-black transition-all transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className='lg:text-xl md:text-xl text-lg text-gray-200 font-semibold pr-10'>{QuickLinks.name}</p>
-                                </div>
-                            </div>
-                        </Link>)}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        </section>
+    );
 }
 
-export default QuickLinks
+export default QuickLinks;
