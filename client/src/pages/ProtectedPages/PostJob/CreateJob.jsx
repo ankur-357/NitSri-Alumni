@@ -24,20 +24,18 @@ const CreateJob = () => {
         jobSkills: [],
         jobLinks: [],
         referralAvailable: false,
-        jobCompanyLogo: null,
         jobDetailsLink: null,
         referrerEmail: ""
     });
     const [loading, setLoading] = useState(false);
 
-    const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
     const [jobDetailsFile, setJobDetailsFile] = useState(null);
 
     const onSubmit = async (data) => {
         setLoading(true);
 
         try {
-            // Upload the job company logo
+            // Upload files and prepare data
             setMessage("Uploading files...");
             data = { ...data, ...jobDetails, name: user.name, email: user.email, userID: user.$id, jobSalary: parseInt(data.jobSalary) }
 
@@ -73,13 +71,11 @@ const CreateJob = () => {
             jobSkills: [],
             jobLinks: [],
             referralAvailable: false,
-            jobCompanyLogo: null,
             jobDetailsLink: null,
             referrerEmail: ""
         });
         reset();
 
-        setJobCompanyLogo(null);
         setJobDetailsFile(null);
     }
 
@@ -308,7 +304,7 @@ const CreateJob = () => {
                 </div>
 
                 <Input
-                    label="jobCompanyEmail"
+                    label="Job Company Email"
                     type="email"
                     placeholder="Job Company Email"
                     title="jobCompanyEmail"
