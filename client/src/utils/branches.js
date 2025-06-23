@@ -20,15 +20,23 @@ export const branches = [
         value: 'CE'
     },
     {
-        name: 'Architecture',
-        value: 'Arch.'
+        name: 'Metallurgy Engineering',
+        value: 'MME'
     },
     {
-        name: 'Integrated MSc.',
-        value: 'I.MSc'
+        name: 'Chemical Engineering',
+        value: 'CHE'
     },
     {
         name: 'Information Technology',
         value: 'IT'
+    },
+    {
+        name: 'Masters',
+        value: 'Masters'
+    },
+    {
+        name: 'Phd',
+        value: 'Phd'
     },
 ]
