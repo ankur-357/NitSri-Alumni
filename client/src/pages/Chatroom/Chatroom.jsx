@@ -19,7 +19,7 @@ function Chatroom() {
                 socket.emit("join_room", room);
                 setShowChat(true);
                 setIsLoading(false);
-            }, 3000);
+            }, 2000);
         }
     };
 

@@ -83,7 +83,7 @@ function Chat({ socket, username, room, setShowChat }) {
                         <p>Waking up the server, please wait...</p>
                     </div>
                 ) : (
-                    <ScrollToBottom className="message-container">
+                    <ScrollToBottom className="message-container !text-white">
                         {messageList.map((messageContent, index) => {
                             const isOwnMessage = username === messageContent.author;
                             return (
@@ -92,11 +92,11 @@ function Chat({ socket, username, room, setShowChat }) {
                                     key={index}
                                 >
                                     <div className="message-bubble">
-                                        <div className="message-content">
+                                        <div className="message-content !text-white">
                                             {messageContent.message}
                                         </div>
                                         <div className="message-meta">
-                                            <span className="message-time">{messageContent.time}</span>
+                                            <span className="message-time !text-white">{messageContent.time}</span>
                                             {!isOwnMessage && (
                                                 <span className="message-author text-white py-2 ml-1">{messageContent?.author}</span>
                                             )}
