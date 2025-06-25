@@ -13,7 +13,7 @@ function Chat({ socket, username, room, setShowChat }) {
 
     const fetchMessages = async () => {
         try {
-            const response = await axios.get(`https://nitsri-alumni-1.onrender.com/api/messages?room=${room}`);
+            const response = await axios.get(`https://nitsri-alumni-1.onrender.com/api/messages?room=${room}`, { timeout: 70000 });
             console.log(response)
             const data = Array.isArray(response.data) ? response.data : [...response.data.messages];
             console.log(data);

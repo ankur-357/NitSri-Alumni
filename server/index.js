@@ -29,9 +29,7 @@ const server = http.createServer(app);
 
 // Enhanced CORS configuration
 const corsOptions = {
-    origin: process.env.NODE_ENV === 'production'
-        ? [process.env.FRONTEND_URL]
-        : ["http://localhost:5173", "http://127.0.0.1:3000"],
+    origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
