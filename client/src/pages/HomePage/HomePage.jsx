@@ -40,7 +40,7 @@ const RSSImageBoardWidget = () => {
 
   return (
     <div className=" mx-auto p-3 bg-white">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Social Media Feed</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">News Feed: Social Media</h2>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
         {tabs.map((tab) => (
