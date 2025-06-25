@@ -10,6 +10,7 @@ const webPush = require('web-push');
 const SubscriptionModel = require('./subscriptionModel');
 const http = require("http");
 const app = express();
+const chatRoutes = require('./chat.js');
 
 // Middleware
 app.use(express.json());
@@ -25,6 +26,7 @@ const { databases } = require("./src/config/appwrite.js");
 const DATABASE_ID = "66d71087003555ba4896";
 const COLLECTION_ID = "66d769cc0004f4437921";
 
+app.use('/api/chat', chatRoutes);
 // Endpoint to handle Excel data upload
 app.post("/upload-excel", async (req, res) => {
     const data = req.body;

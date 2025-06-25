@@ -55,6 +55,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateComponent from "./components/PrivateComponent/PrivateComponent";
 import AdminApp from "./src/adminApp"; // Ensure this is the correct import path
+import GeminiChatbot from "./GeminiChatbot";
 const queryClient = new QueryClient();
 
 function App() {
@@ -148,6 +149,7 @@ function App() {
             </Routes>
           </AuthProvider>
           {/* </ErrorBoundary> */}
+          <GeminiChatbot />
         </>
       </QueryClientProvider>
     </div>
