@@ -124,7 +124,7 @@ const GeminiChatbot = () => {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="bg-white rounded-lg shadow-2xl w-36 sm:w-96 h-[500px] flex flex-col border border-gray-200">
+                <div className="bg-white rounded-lg shadow-2xl w-80 sm:w-96 h-[500px] flex flex-col border border-gray-200">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-purple-600 !text-white p-4 rounded-t-lg flex items-center justify-between">
                         <div className="flex items-center space-x-2">
@@ -196,7 +196,7 @@ const GeminiChatbot = () => {
 
                     {/* Input */}
                     <div className="p-4 border-t border-gray-200">
-                        <div className="flex space-x-2 items-end">
+                        <div className="flex space-x-2 items-center">
                             <div className="flex-1">
                                 <textarea
                                     ref={inputRef}
