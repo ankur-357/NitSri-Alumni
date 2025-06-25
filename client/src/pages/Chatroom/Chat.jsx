@@ -92,7 +92,7 @@ function Chat({ socket, username, room, setShowChat }) {
                                     key={index}
                                 >
                                     <div className="message-bubble">
-                                        <div className={`message-content ${isOwnMessage ? '!text-black' : '!text-white'} `}>
+                                        <div className={`message-content ${isOwnMessage ? 'text-black' : 'text-white'} `}>
                                             {messageContent.message}
                                         </div>
                                         <div className="message-meta">
