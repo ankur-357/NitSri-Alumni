@@ -9,15 +9,21 @@ function Chat({ socket, username, room, setShowChat }) {
     const [messageList, setMessageList] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const fetchMessages = async () => {
         try {
             const response = await axios.get(`https://nitsri-alumni-1.onrender.com/api/messages?room=${room}`);
-            setMessageList(response.data);
+            console.log(response)
+            const data = Array.isArray(response.data) ? response.data : [...response.data.messages];
+            console.log(data);
+            setMessageList(data);
         } catch (error) {
             console.error("Error fetching messages:", error);
+            setMessageList([]); // fallback to prevent crash
         }
     };
+
 
     const sendMessage = async () => {
         if (currentMessage.trim() !== "") {
@@ -41,9 +47,13 @@ function Chat({ socket, username, room, setShowChat }) {
             sendMessage();
         }
     };
-
     useEffect(() => {
-        fetchMessages();
+        const fetch = async () => {
+            await fetchMessages();
+            setLoading(false);
+        };
+        fetch();
+
         socket.off("receive_message").on("receive_message", (data) => {
             setMessageList((prev) => [...prev, data]);
         });
@@ -68,29 +78,35 @@ function Chat({ socket, username, room, setShowChat }) {
             </div>
 
             <div className="chat-body">
-                <ScrollToBottom className="message-container">
-                    {messageList?.map((messageContent, index) => {
-                        const isOwnMessage = username === messageContent.author;
-                        return (
-                            <div
-                                className={`message-wrapper ${isOwnMessage ? 'own-message' : 'other-message'}`}
-                                key={index}
-                            >
-                                <div className="message-bubble">
-                                    <div className="message-content">
-                                        {messageContent.message}
-                                    </div>
-                                    <div className="message-meta">
-                                        <span className="message-time">{messageContent.time}</span>
-                                        {!isOwnMessage && (
-                                            <span className="message-author text-white py-2 ml-1">{messageContent?.author}</span>
-                                        )}
+                {loading ? (
+                    <div className="loading-indicator text-center text-white py-4 px-2">
+                        <p>Waking up the server, please wait...</p>
+                    </div>
+                ) : (
+                    <ScrollToBottom className="message-container">
+                        {messageList.map((messageContent, index) => {
+                            const isOwnMessage = username === messageContent.author;
+                            return (
+                                <div
+                                    className={`message-wrapper ${isOwnMessage ? 'own-message' : 'other-message'}`}
+                                    key={index}
+                                >
+                                    <div className="message-bubble">
+                                        <div className="message-content">
+                                            {messageContent.message}
+                                        </div>
+                                        <div className="message-meta">
+                                            <span className="message-time">{messageContent.time}</span>
+                                            {!isOwnMessage && (
+                                                <span className="message-author text-white py-2 ml-1">{messageContent?.author}</span>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
-                </ScrollToBottom>
+                            );
+                        })}
+                    </ScrollToBottom>
+                )}
             </div>
 
             <div className="chat-footer">

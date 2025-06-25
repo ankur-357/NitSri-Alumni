@@ -19,7 +19,7 @@ function Chatroom() {
                 socket.emit("join_room", room);
                 setShowChat(true);
                 setIsLoading(false);
-            }, 1000);
+            }, 3000);
         }
     };
 
@@ -101,7 +101,6 @@ function Chatroom() {
                             >
                                 {isLoading ? (
                                     <div className="flex justify-center items-center ">
-                                        <div className="spinner"></div>
                                         <span>Joining...</span>
                                     </div>
                                 ) : (
