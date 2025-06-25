@@ -11,11 +11,17 @@ const SubscriptionModel = require('./subscriptionModel');
 const http = require("http");
 const app = express();
 const chatRoutes = require('./chat.js');
+const helmet = require('helmet');
+const csurf = require('csurf');
+const rateLimit = require("express-rate-limit");
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(csurf());
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
 // DB Connection
 connectDB();
