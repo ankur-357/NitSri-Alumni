@@ -14,18 +14,13 @@ const chatRoutes = require('./chat.js');
 const helmet = require('helmet');
 const csurf = require('csurf');
 const rateLimit = require("express-rate-limit");
-const cookieParser = require('cookie-parser'); // Add this for cookie support
-
+const cookieParser = require("cookie-parser")
 // Middleware
 app.use(express.json());
-app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Specify allowed origins
-    credentials: true // Enable credentials for CSRF cookies
-}));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser()); // Add cookie parser before CSRF
 app.use(helmet());
-
+app.use(cookieParser())
 // Configure CSRF protection properly
 const csrfProtection = csurf({
     cookie: {
@@ -35,10 +30,10 @@ const csrfProtection = csurf({
     }
 });
 
-// Apply CSRF protection selectively (exclude Socket.IO and some endpoints)
+
 app.use((req, res, next) => {
     // Skip CSRF for Socket.IO requests and GET requests
-    if (req.path.startsWith('/socket.io') || req.method === 'GET') {
+    if (req.method === 'POST' || req.method === 'GET') {
         return next();
     }
 
@@ -57,13 +52,7 @@ const { databases } = require("./src/config/appwrite.js");
 const DATABASE_ID = "66d71087003555ba4896";
 const COLLECTION_ID = "66d769cc0004f4437921";
 
-// Add endpoint to get CSRF token
-app.get('/csrf-token', (req, res) => {
-    res.json({ csrfToken: req.csrfToken() });
-});
-
 app.use('/api/chat', chatRoutes);
-
 // Endpoint to handle Excel data upload
 app.post("/upload-excel", async (req, res) => {
     const data = req.body;
@@ -180,15 +169,16 @@ app.get("/api/messages", async (req, res) => {
 });
 
 const { Server } = require("socket.io");
+
 const API_URL = process.env.API_URL;
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+        origin: "*",
         methods: ["GET", "POST"],
-        credentials: true
     },
 });
+
 
 io.on("connection", (socket) => {
     console.log(`User Connected to Chat Namespace: ${socket.id}`);
@@ -214,15 +204,7 @@ io.on("connection", (socket) => {
     });
 });
 
-// Global error handler for CSRF errors
-app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        // Handle CSRF token errors
-        res.status(403).json({ error: 'Invalid CSRF token' });
-    } else {
-        next(err);
-    }
-});
+
 
 // Server Listener
 server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
