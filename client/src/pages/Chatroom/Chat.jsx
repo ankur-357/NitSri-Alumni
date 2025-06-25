@@ -92,13 +92,13 @@ function Chat({ socket, username, room, setShowChat }) {
                                     key={index}
                                 >
                                     <div className="message-bubble">
-                                        <div className="message-content !text-white">
+                                        <div className={`message-content ${isOwnMessage ? '!text-black' : '!text-white'} `}>
                                             {messageContent.message}
                                         </div>
                                         <div className="message-meta">
-                                            <span className="message-time !text-white">{messageContent.time}</span>
+                                            <span className={`message-time ${isOwnMessage ? '!text-black' : '!text-white'}`}>{messageContent.time}</span>
                                             {!isOwnMessage && (
-                                                <span className="message-author text-white py-2 ml-1">{messageContent?.author}</span>
+                                                <span className={`message-author !text-white py-2 ml-1 ${isOwnMessage ? '!text-black' : '!text-white'}`}>{messageContent?.author}</span>
                                             )}
                                         </div>
                                     </div>

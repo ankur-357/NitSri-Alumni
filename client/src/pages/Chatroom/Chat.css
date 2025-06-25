@@ -290,7 +290,7 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     .other-message .message-bubble {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.4);
         color: #e5e5e5;
     }
 
