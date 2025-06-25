@@ -12,36 +12,84 @@ const http = require("http");
 const app = express();
 const chatRoutes = require('./chat.js');
 const helmet = require('helmet');
-const csurf = require('csurf');
 const rateLimit = require("express-rate-limit");
-const cookieParser = require("cookie-parser")
+
+// Optional: Add cookie-parser only if available
+let cookieParser;
+try {
+    cookieParser = require('cookie-parser');
+} catch (e) {
+    console.warn('cookie-parser not installed, CSRF will be disabled');
+}
+
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// CORS configuration - more permissive for now
+app.use(cors({
+    origin: true, // Allow all origins temporarily
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
+}));
+
 app.use(express.urlencoded({ extended: false }));
-app.use(helmet());
-app.use(cookieParser())
-// Configure CSRF protection properly
-const csrfProtection = csurf({
-    cookie: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        sameSite: 'strict'
-    }
-});
 
+// Add cookie parser if available
+if (cookieParser) {
+    app.use(cookieParser());
+}
 
-app.use((req, res, next) => {
-    // Skip CSRF for Socket.IO requests and GET requests
-    if (req.method === 'POST' || req.method === 'GET') {
-        return next();
-    }
+app.use(helmet({
+    contentSecurityPolicy: false, // Disable CSP temporarily
+    crossOriginEmbedderPolicy: false
+}));
 
-    // Apply CSRF protection to other routes
-    csrfProtection(req, res, next);
-});
+// Conditional CSRF protection
+const ENABLE_CSRF = process.env.ENABLE_CSRF === 'true' && cookieParser;
 
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 1000 }));
+if (ENABLE_CSRF) {
+    const csurf = require('csurf');
+    const csrfProtection = csurf({
+        cookie: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        },
+        ignoreMethods: ['GET', 'HEAD', 'OPTIONS']
+    });
+
+    // Apply CSRF selectively
+    app.use((req, res, next) => {
+        // Skip CSRF for Socket.IO, API endpoints that don't need it, and preflight requests
+        if (req.path.startsWith('/socket.io') ||
+            req.method === 'OPTIONS' ||
+            req.path === '/api/messages' ||
+            req.path.startsWith('/csrf-token')) {
+            return next();
+        }
+
+        csrfProtection(req, res, next);
+    });
+
+    // CSRF token endpoint
+    app.get('/csrf-token', csrfProtection, (req, res) => {
+        res.json({ csrfToken: req.csrfToken() });
+    });
+} else {
+    console.log('CSRF protection disabled');
+    // Dummy CSRF token endpoint when CSRF is disabled
+    app.get('/csrf-token', (req, res) => {
+        res.json({ csrfToken: 'disabled' });
+    });
+}
+
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 1000,
+    standardHeaders: true,
+    legacyHeaders: false
+}));
 
 // DB Connection
 connectDB();
@@ -53,6 +101,16 @@ const DATABASE_ID = "66d71087003555ba4896";
 const COLLECTION_ID = "66d769cc0004f4437921";
 
 app.use('/api/chat', chatRoutes);
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        csrf: ENABLE_CSRF ? 'enabled' : 'disabled'
+    });
+});
+
 // Endpoint to handle Excel data upload
 app.post("/upload-excel", async (req, res) => {
     const data = req.body;
@@ -169,16 +227,15 @@ app.get("/api/messages", async (req, res) => {
 });
 
 const { Server } = require("socket.io");
-
 const API_URL = process.env.API_URL;
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: true, // Allow all origins temporarily
         methods: ["GET", "POST"],
+        credentials: true
     },
 });
-
 
 io.on("connection", (socket) => {
     console.log(`User Connected to Chat Namespace: ${socket.id}`);
@@ -204,7 +261,28 @@ io.on("connection", (socket) => {
     });
 });
 
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error('Global error handler:', err);
 
+    if (err.code === 'EBADCSRFTOKEN') {
+        res.status(403).json({ error: 'Invalid CSRF token' });
+    } else if (err.type === 'entity.parse.failed') {
+        res.status(400).json({ error: 'Invalid JSON' });
+    } else {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Catch-all route for debugging
+app.use('*', (req, res) => {
+    console.log(`Unhandled route: ${req.method} ${req.originalUrl}`);
+    res.status(404).json({ error: 'Route not found' });
+});
 
 // Server Listener
-server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
+server.listen(PORT, () => {
+    console.log(`Server is running on port: ${PORT}`);
+    console.log(`CSRF protection: ${ENABLE_CSRF ? 'enabled' : 'disabled'}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
