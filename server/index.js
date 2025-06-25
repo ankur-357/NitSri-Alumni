@@ -27,12 +27,25 @@ const API_URL = process.env.API_URL;
 const app = express();
 const server = http.createServer(app);
 
-// Enhanced CORS configuration
+// Enhanced CORS configuration - FIXED
 const corsOptions = {
-    origin: "*",
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        return callback(null, true);
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Origin"
+    ],
+    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
+    preflightContinue: false,
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
 
 // Enhanced rate limiting
@@ -50,32 +63,41 @@ const chatLimiter = rateLimit({
     message: 'Too many messages, please slow down.',
 });
 
-// Middleware
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            scriptSrc: ["'self'"],
-            imgSrc: ["'self'", "data:", "https:"],
-        },
-    },
-}));
-app.use(express.json({ limit: '10mb' }));
+// IMPORTANT: Apply CORS before other middleware
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
+
+// Modified Helmet configuration to work better with CORS
+app.use(helmet({
+    contentSecurityPolicy: false, // Disable CSP if it's causing issues
+    crossOriginEmbedderPolicy: false,
+}));
+
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(generalLimiter);
 
 // DB Connection
 connectDB();
 
-// Socket.IO setup with enhanced configuration
+// Socket.IO setup with enhanced CORS configuration
 const io = new Server(server, {
-    cors: corsOptions,
+    cors: {
+        origin: "*", // Allow all origins for Socket.IO
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"],
+        credentials: true
+    },
     pingTimeout: 60000,
     pingInterval: 25000,
     maxHttpBufferSize: 1e6, // 1MB
-    allowEIO3: true
+    allowEIO3: true,
+    allowRequest: (req, callback) => {
+        // Additional check for Socket.IO connections
+        callback(null, true);
+    }
 });
 
 // Room management
