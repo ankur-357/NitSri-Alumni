@@ -108,13 +108,14 @@ const About = () => {
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
                 <h4 className="text-xl font-semibold text-blue-400 mb-3">Engineering Departments</h4>
                 <ul className="space-y-2 text-gray-300">
-                  <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Architecture</li>
+                  <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Chemical Engineering</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Civil Engineering</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Computer Science & Engineering</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Electrical Engineering</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Electronics & Communication</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Information Technology</li>
                   <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Mechanical Engineering</li>
+                  <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>Metallurgy Engineering</li>
                 </ul>
               </div>
 
