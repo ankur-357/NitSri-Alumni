@@ -117,7 +117,7 @@ const GivingMatters = () => {
                             University fundraising, especially from alumni, helps universities realize all of these programs, resources, and activities for their students. </p>
                     </div>
                     <div className="basis-[40%] sm:px-5  py-2 px-2 overflow-hidden rounded-xl lg:mt-0 md:mt-0 mt-5">
-                        <img src="./images/Alumni1.png" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
+                        <img src="/images/Alumni1.jpg" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@ const GivingMatters = () => {
                             Depending on the unique needs of your university, you may solicit donations for a specific renovation or program or just accept general alumni donations year-round that can be primarily used for your operational budget.</p>
                     </div>
                     <div className="basis-[40%] sm:px-5  py-2 px-2 overflow-hidden rounded-xl lg:mt-0 md:mt-0 mt-5">
-                        <img src="./images/Alumni1.png" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
+                        <img src="/images/Alumni2.jpeg" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@ const GivingMatters = () => {
                             While there is no one definitive number that is “good,” you should be aware of your alumni participation rate and should always be working to improve it. </p>
                     </div>
                     <div className="basis-[40%] sm:px-5  py-2 px-2 overflow-hidden rounded-xl lg:mt-0 md:mt-0 mt-5">
-                        <img src="./images/Alumni1.png" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
+                        <img src="/images/Alumni3.jpg" alt="ankur" className="rounded-xl w-full   shadow-xl hue-rotate-30 " />
                     </div>
                 </div>
             </div>
