@@ -18,7 +18,7 @@ const Director = () => {
                 <div className="flex justify-center md:justify-start">
                     <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-sky-500 shadow-lg overflow-hidden bg-gradient-to-br from-sky-400 to-indigo-600">
                         <img
-                            src="/images/PKJ_Desk_Photo.jpg"
+                            src="/Director.jpg"
                             alt="Director Prof. Binod Kumar Kanaujia"
                             className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500"
                             loading="lazy"
