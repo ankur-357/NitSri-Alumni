@@ -80,7 +80,7 @@ const About = () => {
                   </p>
 
                   <p className="text-gray-300 leading-relaxed text-lg">
-                    It is imparting high quality education & values at <span className="text-blue-400">UG (B.Tech)</span>, <span className="text-green-400">PG (M.Tech)</span> & <span className="text-yellow-400">Ph.D.</span> programmes through its experienced faculty well versed in their respective field of engineering and technology with well equipped laboratories.
+                    It is imparting high quality education & values at <span className="text-blue-400">UG (B.Tech)</span>, <span className="text-green-400">PG (M.Tech, MBA)</span> & <span className="text-yellow-400">Ph.D.</span> programmes through its experienced faculty well versed in their respective field of engineering and technology with well equipped laboratories.
                   </p>
                 </div>
               </div>
